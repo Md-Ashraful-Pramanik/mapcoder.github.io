@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
+
+    <title>MapCoder</title>
+    <style>
+        body {
+            font-family: 'Poppins';
+            font-size: 18px;
+            margin: 0;
+            padding: 0;
+            text-align:justify;
+        }
+
+        .container {
+            max-width: 59rem;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .link-block {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .external-link {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 0.2rem;
+            padding-bottom: 0.2rem;
+
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            border-radius: 0.1rem;
+            transition: background-color 0.3s;
+            border-radius: 0.3rem;
+
+            display: flex;
+            flex-direction: row;
+            gap: 0.2rem;
+        }
+
+        .icon {
+            margin-top: 0.2rem;
+        }
+
+        .gray-border {
+            border: 0.1rem solid gray;
+            border-collapse: collapse;
+        }
+
+        .black-border {
+            border: 0.5rem solid black;
+            border-collapse: collapse;
+        }
+
+        .bg-gray {
+            background-color: gainsboro;
+        }
+
+        .center-align {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .dark-font {
+            color: black;
+            font-weight: bolder;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-top: 3rem;">MapCoder</h1>
+        <h2 style="text-align: center; margin-top: -1.5rem; font-weight: 500">Multi-Agent Code Generation for
+            Competitive Problem Solving</h2>
+
+        <h4 style="text-align: center; margin-top: -1rem; font-weight: 500">
+            <a href="https://cse.buet.ac.bd/faculty_list/detail/mdashraful">Md. Ashraful Islam</a>
+            <sup style="color: green">1</sup>,
+            <a href="https://sites.google.com/site/mohammedeunusali/">Mohammed Eunus Ali</a>
+            <sup style="color: green">1</sup>,
+            <a href="https://rizwan09.github.io/">Md Rizwan Parvez</a>
+            <sup style="color: orangered">2</sup>
+        </h4>
+
+        <p style="text-align: center; margin-top: -1rem; font-weight: 500; font-size: medium;">
+            <sup style="color: green">1</sup>
+            Department of Computer Science and Engineering,
+            Bangladesh University of Engineering and Technology (BUET)
+        </p>
+        <p style="text-align: center; margin-top: -1.2rem; font-weight: 500; font-size: medium;">
+            <sup style="color: orangered">2</sup>
+            Qatar Computing Research Institute (QCRI)
+        </p>
+
+        <div style="margin-top: 1rem;"></div>
+
+        <span class="link-block">
+            <a href="https://arxiv.org/abs/2402.14658" class="external-link" style="background-color:gray">
+                <span class="material-symbols-outlined icon">picture_as_pdf</span>
+                <span>arXiv</span>
+            </a>
+
+            <a href="https://arxiv.org/abs/2402.14658" class="external-link" style="background-color:gray">
+                <span class="material-symbols-outlined icon">code</span>
+                <span>code</span>
+            </a>
+            <a href="#results" class="external-link" style="background-color:gray">
+                <span class="material-symbols-outlined icon">trophy</span>
+                <span>results</span>
+            </a>
+        </span>
+
+        <img src="images/MapCoder-Overview.png" alt="Overview" style="width: 100%; margin-top: 1rem; margin-top: 2rem;">
+        <p>Overview of MapCoder. It starts with a retrieval
+            agent that generates relevant examples itself, followed by planning, coding, and iterative debugging agents.
+            Our dynamic traversal (bottom) considers the confidence of the generated plans as their reward/utility
+            scores and leverage them to guide the code generation accordingly.</p>
+
+        <h2 style="text-align: center;">Introduction</h2>
+        <p>
+            Code synthesis, which requires a deep understanding of complex natural language (NL) problem descriptions,
+            generation of code instructions for complex algorithms and data structures, and the successful execution of
+            comprehensive unit tests, presents a significant challenge. Thus, while large language models (LLMs)
+            demonstrate impressive proficiency in natural language processing (NLP), their performance in code
+            generation tasks remains limited. In this paper, we introduce a new approach to code generation tasks
+            leveraging the multi-agent prompting that uniquely replicates the full cycle of program synthesis as
+            observed in human developers. Our framework, <b>MapCoder</b>, consists of four LLM agents specifically
+            designed to emulate the stages of this cycle: recalling relevant examples, planning, code generation, and
+            debugging. After conducting thorough experiments, with multiple LLMs ablations, and analyses across seven
+            challenging competitive problem-solving and program synthesis benchmarks—MapCoder showcases remarkable code
+            generation capabilities, achieving their new state-of-the-art (pass@1) results—(<b>HumanEval 93.9%, MBPP
+                83.1%, APPS 22.0%, Code-Contests 28.5%, and xCodeEval 45.3%</b>). Moreover, our method consistently
+            delivers superior performance across various programming languages and varying problem difficulties.
+        </p>
+
+
+        <h2 style="text-align: center;">MapCoder Overview</h2>
+        Our goal is to develop a multi-agent code generation approach for competitive problem-solving. In order to do
+        so, our framework, MapCoder, replicates the human programming cycle through four LLM agents - retrieval, plan,
+        code, and debug. We devise a pipeline sequence for MapCoder, intelligently cascading the agents in a structured
+        way and enhancing each agent's capability by augmenting in-context learning signals from previous agents in the
+        pipeline. However, not all the agent responses/outputs are equally useful. Therefore, additionally, MapCoder
+        features an adaptive agent traversal schema to interact among corresponding agents dynamically, iteratively
+        enhancing the generated code by, for example, fixing bugs, while maximizing the usage of the LLM agents. Here,
+        we first discuss the agents (as per the pipeline), their prompts, and interactions, followed by the dynamic
+        agent traversal protocol in MapCoder towards code generation for competitive problem-solving.
+
+        <h3 style="display: flex;"><span class="material-symbols-outlined icon">double_arrow</span>Retrieval Agent</h3>
+        Our first agent, the <i>Retrieval Agent</i>, recalls past relevant problem-solving instances, akin to human
+        memory. It finds k (user-defined) similar problems without manual crafting or external retrieval models.
+        Instead, we leverage the LLM agent itself, instructing it to generate such problems.
+
+        <h3 style="display: flex;"><span class="material-symbols-outlined icon">double_arrow</span>Planning Agent</h3>
+        The second agent, the <i>Planning Agent</i>, aims to create a step-by-step plan for the original problem. Our
+        <i>Planning Agent</i> uses examples and their plans obtained from the retrieval agent to generate plans for the
+        original problem. A straightforward approach would be to utilize all examples collectively to generate a single
+        target plan. However, not all retrieved examples hold equal utility. Concatenating examples in a random order
+        may compromise the LLM's ability to generate accurate planning. 
+
+        <h3 style="display: flex;"><span class="material-symbols-outlined icon">double_arrow</span>Coding Agent</h3>
+        Next is the <i>Coding Agent</i>. It takes the problem description, and a plan from the <i>Planning Agent</i> as
+        input and translates the corresponding planning into code to solve the problem. During the traversing of agents,
+        <i>Coding Agent</i> takes the original problem and one particular plan from the <i>Planning Agent</i>, generates
+        the code, and test on sample I/O. If the initial code fails, the agent transfers it to the next agent for
+        debugging. Otherwise, predicts that as the final solution.
+
+        <h3 style="display: flex;"><span class="material-symbols-outlined icon">double_arrow</span>Debugging Agent</h3>
+        Finally, the <i>Debugging Agent</i> utilizes sample I/O from the problem description to rectify bugs in the
+        generated code. Similar to humans cross-checking their plan while fixing bugs, our pipeline supplements the
+        <i>Debugging Agent</i> with plans from the <i>Planning Agent</i>. This plan-derived debugging significantly
+        enhances bug fixing in MapCoder, underscoring the pivotal roles played by both the <i>Debugging Agent</i> and
+        the <i>Planning Agent</i> in the generation process. 
+
+        <h2 style="text-align: center;" id="results">Results</h2>
+        <img src="images/MapCoder-Results.png" alt="Overview" style="width: 100%; margin-top: 1rem; margin-top: 2rem;">
+        <p>
+            Pass@1 results for different approaches. The green texts indicate SOTA results, and the red text is gain over Direct Prompting approach.
+        </p>
+        <p>
+            In simple program synthesis tasks like HumanEval and MBPP we got highest scale of performance (Pass@1) scores. The current state-of-the-art method, Reflexion perform reasonably well, this approach does not generalize across varying datasets depicting a wide variety of problems. Self-reflection techniques enhance GPT-4's performance on HumanEval but result in a 3% decrease on the MBPP dataset. Consequently, even in HumanEval, with GPT-4, our Pass@1 surpasses Reflexion by ~3%. The significance of MapCoder shines through clearly when evaluated in competitive problem-solving contexts. Across datasets such as APPS, xCodeEval, and CodeContests, MapCoder demonstrates substantial enhancements over Direct prompting methods, with improvements of 41.3%, 52.6%, and 132.8% for ChatGPT, and 73.7%, 41.2%, and 135.1% for GPT4, respectively. Notably, the most challenging datasets are APPS and CodeContest, where MapCoder's performance stands out prominently. Importantly, on CodeContest our Pass@1 results match the Pass@5 scores of the concurrent state-of-the-art model AlphaCodium: 28.5% vs. their 29%. Furthermore, our Pass@5 in CodeContest is 35.2% results demonstrate an additional improvement of 12.8% over AlphaCodium.
+        </p>
+
+    </div>
+</body>
+
+</html>
